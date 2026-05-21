@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Cowork 教學 — 報告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background: #f0f2f5; padding: 20px; }
+        .header { background: linear-gradient(135deg, #6c5ce7, #341f97); color: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; }
+        .header h1 { font-size: 22px; }
+        .header .meta { opacity: 0.8; font-size: 13px; margin-top: 8px; }
+        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h2 { font-size: 18px; color: #341f97; margin-bottom: 12px; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+        .card ul { list-style: none; padding-left: 0; }
+        .card li { padding: 6px 0; font-size: 14px; color: #333; border-bottom: 1px solid #f5f5f5; }
+        .card li:last-child { border-bottom: none; }
+        .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; margin: 3px; }
+        .feature { background: #e8f5e9; color: #2e7d32; }
+        .tip { background: #fff3e0; color: #e65100; }
+        .link { color: #341f97; text-decoration: none; font-weight: 500; }
+        .link:hover { text-decoration: underline; }
+        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 30px; }
+        .nav { margin: 15px 0; }
+        .nav a { display: inline-block; padding: 8px 16px; background: #341f97; color: white; border-radius: 8px; text-decoration: none; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 Claude Cowork 最友善的手把手教學</h1>
+        <div class="meta">
+            來源：YouTube | 語言：中文（台灣）繁體 | 447 段字幕 | 約 18 分鐘<br>
+            <a href="https://youtu.be/_cVTzXvb7xs" style="color:#aaa">https://youtu.be/_cVTzXvb7xs</a>
+        </div>
+        <div class="nav"><a href="index.html">⬅ 回儀表板</a></div>
+    </div>
+
+    <div class="card">
+        <h2>📌 重點摘要</h2>
+        <ul>
+            <li><strong>Claude Cowork</strong> 是 Anthropic 2026 年推出的 AI 工作助理，與傳統 AI 不同在於「能幫你把工作做完」，不只是給答案</li>
+            <li>需安裝桌面版 App（Windows/Mac），需 Claude Pro 訂閱（$20/月）</li>
+            <li>核心概念：在指定的「資料夾」內工作，可存取本機檔案、操作瀏覽器與應用程式</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>⚙️ 核心功能</h2>
+        <ul>
+            <li><strong>📁 專案工作區</strong> — 指定本地資料夾，AI 在安全範圍內讀寫檔案</li>
+            <li><strong>📄 文件生成</strong> — 能產出 Word、Excel、PPT 等檔案，自動存到專案資料夾</li>
+            <li><strong>📱 Dispatch</strong> — 手機遠端指派任務給家中電腦的 Cowork</li>
+            <li><strong>🧠 CLAUDE.md</strong> — 專案記憶文件，記錄行為準則與偏好</li>
+            <li><strong>📅 排程任務</strong> — 固定時間自動執行工作（如每週一製作簡報）</li>
+            <li><strong>👥 子代理（Subagent）</strong> — 多任務並行處理，最後彙整結果</li>
+            <li><strong>🔌 連接器（Connectors）</strong> — 串接 Canva、Google 日曆、Gmail 等外部工具</li>
+            <li><strong>🎯 Skills</strong> — 自訂 SOP 說明書，重複使用的工作流程</li>
+            <li><strong>🧩 Plugins</strong> — 把 Skills + Connectors 打包成套裝工具箱</li>
+            <li><strong>🖥️ Computer Use</strong> — 像真人操作電腦軟體（Keynote→PPT 轉檔等）</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>💡 實際應用範例</h2>
+        <ul>
+            <li>📸 社區大學攝影講師用 Cowork 準備課程教材、管理學員名冊</li>
+            <li>📊 手機翻拍紙本名冊 → Cowork OCR 辨識 → 自動產出 Excel</li>
+            <li>📱 人在外面用手機指派：整理新學員名單、統計相機持有數</li>
+            <li>🖼️ 學員繳交攝影作業 → Cowork 自動依主題分類到資料夾</li>
+            <li>🏥 遠端幫父親在醫院網站掛號（瀏覽器操作）</li>
+            <li>🔄 外地演講發現檔案格式不符 → 遠端 Cowork 幫忙轉檔</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>🆚 Cowork vs 傳統 AI</h2>
+        <ul>
+            <li>傳統 AI：告訴你「答案是什麼」</li>
+            <li>Cowork：直接「幫你把工作做完」</li>
+            <li>支援操作瀏覽器、編輯文件、管理檔案</li>
+            <li>可排程、可分身（子代理）、可串接外部服務</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>📋 完整字幕全文</h2>
+        <div style="font-size:13px;line-height:1.8;color:#555" id="fulltext">載入中...</div>
+    </div>
+
+    <div class="footer">
+        報告由金仙 ✨ 自動產出 | 2026-05-21 | <a href="https://ls25035500-tech.github.io/jinxin-dashboard/" class="link">金仙儀表板</a>
+    </div>
+
+    <script>
+    document.getElementById('fulltext').textContent = 
+        `嗨，大家好 今天我們要來聊聊 Claude Cowork 它是 Anthropic 在 2026 年最新推出的 AI 工作助理 Cowork 跟以往的 AI 最大的不同處 在於過去的 AI 只能告訴你答案 但 Claude Cowork 則是能 真正幫你把工作做完的 AI 助理 像是整理檔案 生成文件 甚至幫你操作電腦內的瀏覽器和軟體等 好，那在正式開始前 我們必須先到 Claude 的官方網站 來下載桌面版的應用程式 目前 Windows 和 Mac 兩個主要平台都能夠使用 下載並安裝完成後 你可以直接將它開啟 那 Claude Cowork 目前只開放給付費的用戶 也就是說你至少要訂閱 Claude Pro 的方案 每個月是 20 美元 如果已有訂閱 你就可以順利登入到 Claude Cowork 的主介面 那在上方 你可以看到三個不同的分頁 其中左側的 Chat 就是一般聊天式的 AI 你可以詢問它問題 請它幫你寫文案或是做腦力激盪等 而右側的 Code 則是為工程師設計的 AI 助理 它可以幫你撰寫程式碼 以及開發各類型的 Apps 或網站等 至於今天我們要介紹的 Claude Cowork 則是位於正中間的分頁 那假設今天我們有個故事主角叫做小明 他是一位在社區大學教授「數位攝影」的講師 為了在開課前完成各項前置作業 他決定使用 Claude Cowork 幫忙分擔課堂行政和教材的整理 Cowork 最核心的概念 就是它只會在你指定的「資料夾」內工作 這個資料夾既是工作區 也是一個安全的隔離範圍 於是小明在自己電腦的桌面 建立了一個空白資料夾 命名為「社區大學」 然後他把去年的一些舊文件 拖曳到這個資料夾內 作為 Claude 執行任務時的背景知識和參考資料 文件夾準備好後 小明回到 Cowork 的介面 把專案目錄指定到剛建立的「社區大學」資料夾 點擊「打開」 此時 Cowork 會跳出一個授權的對話框 其中 Allow (允許) 是屬於單次的授權 如果不希望 Claude 每次存取這個資料夾都要詢問的話 你可以選擇 Always Allow (永久授權) 會比較省事一些 而在輸入框的右下角 你可以根據任務性質來選擇適合的 AI 模型 例如 Opus 擅長深度的邏輯分析和推理 Haiku 適合快速且簡單的任務 而 Sonnet 則同時兼顧了效能和實用性 此外底下還有一個 Extended Thinking (延伸思考) 的開關 如果你要交辦的任務前後脈絡較為複雜 你就可以考慮將它開啟 讓 Claude 能投入更多時間來拆解目前的問題 好，由於稍早我們已經把去年的舊檔案 放進了「社區大學」的資料夾 因此這些文件就成為了 AI 的先備知識庫 你可以直接向 Claude 提出任何問題 例如去年數位攝影的開課日期是什麼時候？ 然後 Claude 就會立即查看它手上的資料來回答問題 就好像我們的身邊多了一位隨時待命的小秘書 不過 Claude 最厲害的地方並不在此 而是你可以交代實際的任務交由它來執行 譬如小明可以請 Claude 參考去年的範本 生成今年的「課程資訊」文件 提示詞寫好後 我們按下 Enter 鍵將它送出 過了一會兒 Claude 就會向我們回報 Word 檔已經生成完畢 而且這份新文件也會自動儲存到「社區大學」的資料夾內喔 好，那就在開課的前幾天 小明從社區大學那邊收到了學員的名冊 只是這個名冊是一份紙本文件 想要做快速查詢和分類篩選都不是很方便 因此小明決定用手機把名冊翻拍成一張圖片 並且把圖檔上傳到 Claude Cowork 請它把內容辨識出來 轉換成 Excel 試算表 同時小明也請 Claude 統計一下學過攝影的人數 和學生使用的拍攝裝備 最後再將提示詞送出 那在 Claude 執行任務的過程中 我們可以在右上角的面板看到目前的進度 而當任務順利完成後 我們就能在底下看到生成好的 Excel 檔案 裡面的學生資料都已正確被拆分成不同的欄位 而且旁邊也有我們先前交待的人數統計表格 除此之外 此次報名攝影班的人數 也已正確回填到課程資訊的 Word 檔囉 好，由於工作的因素 小明常需要在外面授課或參與外拍活動 無法一直待在電腦前 不過這並未造成小明的困擾 因為他仍可以透過手機 直接把任務交辦給 AI 助理 而要啟用這項功能 小明可以到側邊欄先進入 Dispatch 的頁面 並且在底部點擊「開始」按鈕 這裡我們需要將 Cowork 與自己的手機先進行配對 你可以在手機的 App Store 先下載 Claude 的 App 然後回到桌面來將它開啟 並且登入自己的 Claude 帳號 登入成功後 你就可以回到 Cowork 點擊「我已登入手機」的按鈕 那這邊有幾個設定的選項 首先「保持電腦在喚醒狀態」必須設為啟用 因為電腦一旦進入睡眠 手機就沒有辦法與 Cowork 產生連線 然後底下有一個 Chrome 的擴充功能 建議可以把它先安裝起來 安裝成功之後 Claude 就能在需要時 代替我們操作瀏覽器來執行交辦的任務 甚至你還可以視情況 啟用 Let Claude control your computer 這個選項會給予 Claude 更高的權限 讓它能透過畫面截圖來實際幫你操作電腦喔 好，手機配對完成後 小明無論身在何處 都能隨時遠端操控在家中待命的 AI 助理 譬如交待 Claude 查一下這次新報名的學生中 有多少人持有單眼或微單相機？ 途中如果有跳出授權的提示 就直接按下「允許」 如此過了一會兒 Claude 就能從電腦中的 Excel 檔篩選出符合條件的同學名單囉 好，剛才我們有提到頁面右上角 有一個 Progress (進度) 的面板 裡面顯示了 Claude 在執行任務時的操作進度 而在它的下方 還有另一個標示為「社區大學」的區塊 它的用途是告訴我們 此次任務中 Claude 有碰過哪些檔案 例如它曾讀取了「課程資訊」的 Word 檔 和修改了「學生名單」的 Excel 表格等 那你會注意到這裡有一個檔名較特別的文件 叫做 CLAUDE.md 它是一個由 Cowork 自動生成的特殊文件 主要是用來承載關於這個專案的「記憶」 只要 Claude 每次進入到這個專案 它就會先讀取這份文件的內容 當作執行任務的行為準則 因此小明可以把所有關於課程的重要事項都記錄在這裡 例如撰寫教材時的用字遣詞 以及如何處理學生的個資等 如此 Claude 在執行任務時 我們就不需要每次都要跟它做同樣的提醒囉 好，如果你有一些需要長期處理的工作 且希望 Claude 能隨時切換情境 立即掌握不同工作的背景脈絡 那麼你可以考慮替該項工作建立一個 Project (專案) 舉例來說 小明每一週都必須為攝影課準備上課的簡報 而且每份簡報都必須遵循固定的格式與文字風格 對此小明決定為課程簡報建立一個新的 Project 點擊「從頭開始」 那這邊最重要的 就是中間的 Instructions (指令) 欄位 小明可以把製作簡報的重要規範都寫在這個地方 此外由於每週的課程主題都不一樣 為了讓 Claude 能正確參照每一週的上課內容 小明把「課程大綱」的 Word 檔也上傳到 Cowork 至於專案的儲存位置 小明則是直接將它儲存在「社區大學」 Cowork 會在裡面自動建立一個專屬的子資料夾 最後點擊「建立」 好，我們來做個測試 我請 Claude 針對第一週的課程生成一份 PPT 簡報 然後送出指令 稍待片刻後 我們就可以開啟這個生成好的檔案 如此一個專業且內容完整的課程投影片就大功告成囉 好，Project 跟一般任務最大的差別 就是 Project 本身有專屬的記憶空間 也就是 Claude 會學習你的工作習慣和偏好 作為未來執行任務的行為準則 舉例來說 當我們在請 Claude 製作簡報時 有時自己可能會想提供一些素材 像是照片範例或器材圖片等 將它們放到投影片裡面 因此我們可以請 Claude 主動提醒我們 並要求它「把這件事記下來」 那假設過了幾天 小明打算請 Claude 繼續製作第二週的課程簡報 而 Claude 此時就會主動詢問 是否我們要提供任何圖片給它作為投影片的素材喔 好，除了「記憶」功能之外 Project 的另一大賣點 就是它能設定所謂的「排程」 也就是在固定時間去執行特定的任務 那要設定排程有兩個方式 第一，你可以到右側的 Scheduled 面板內點擊 + 號 把要排定的任務內容和週期頻率輸入到對話框內 第二，你可以直接用白話描述你要交辦給 Claude 的工作事項 例如在每週一晚上 7 點 先製作好當週的 PPT 簡報 這樣一個簡單的排程任務就建立完畢了 之後如果你想要察看任務內容 你可以進入到左側的 Scheduled 頁面 那這邊要特別注意 右邊有一個 Keep awake (讓電腦保持喚醒) 的選項必須要維持開啟 一旦電腦進入了睡眠 或是 Cowork 的程式沒有打開的話 就會導致 Claude 無法執行排程的工作 此外如有需要 你也可以把進度往前推 點擊 Run Now 直接開始執行任務 或是點擊「垃圾桶」可以刪除排程 以及點擊「鉛筆」可以進入編輯畫面 來調整任務內容和執行的頻率 好，有了「排程」這項功能 Claude 變得更像是位會主動值勤的小幫手 而不是一個被動的聊天工具 例如小明可以請 Claude 在每天早晨固定到網路上 找找看是否有相機產品的新資訊 或是 Photoshop 和 Lightroom 的新教學文章 這個任務如果交給一般的 AI Agent 來做 它可能會照著：先做完一件 再做下一件的順序慢慢來跑 不但時間會拉得很長 而且資料一多還容易把 AI 的對話容量塞爆 相較之下 Claude Cowork 的做法就顯得高明許多 它可以把工作外包出去 分給所謂的 Subagent (子代理) 即自己的「分身」 讓三個任務同時並行 最後再把每個分身取得的資訊統一做個彙整 回報給我們 如此一來 不但任務的執行時間會明顯縮短 而且也不用擔心資訊太多導致目標失焦 好，那這個排程任務已經設定完成了 我們不妨先手動跑一次看看 來做個快速的測試 點擊 Run Now 好，那目前三個 Subagent 都已經把資料蒐集齊全了 而且 Claude 也已完成資訊的彙整 小明只要開啟當日的資訊看板 就可以在側邊欄讀取最新的攝影相關動態囉 好，Claude 除了能上網蒐集資訊之外 它還有一個非常強大的殺手級應用 叫做 Connectors (連接器) Connectors 可以連接並操作各種外部的工具和服務 舉例來說 隨著攝影課程即將開課 小明打算在 IG 和脆上面 發布一張吸引人的宣傳圖片 如果是在過去 小明可能得自己打開設計軟體 自己去找範本並手動做排版 但現在小明可以進入 Cowork 的連接器設定 點擊 + 號來開啟連接器的目錄 那這邊有各式各樣 Claude 能連接的工具 而這裡小明輸入了 Canva 作為關鍵字 打算把 Cowork 和 Canva 這兩個平台連接起來 連接成功之後 小明就寫了一段提示詞 請 Claude 幫忙設計社群平台的貼文 然後將指令送出 而當 Claude 完成了設計的初稿之後 小明也能將初稿開啟在 Canva 繼續做進一步的修改和編輯喔 好，除了 Canva 之外 Cowork 也能跟許多常見的 生產力工具進行深度的整合 例如小明把 Cowork 跟 Google 日曆也做了連接 如此一來 小明就可以直接在輸入框內 查詢自己未來的行程 不僅如此 小明還能把即將要開課的 12 週攝影課程 一口氣全部新增到自己的行事曆 徹底省去了手動輸入行程的繁瑣步驟 那就在開課的前幾天 小明打算寄一封歡迎信給所有報名的學員 於是他回到 Cowork 輸入 Gmail 作為關鍵字 把 Cowork 與 Gmail 成功串接了起來 不過小明很快就發現了一個問題 就是這封 Email 的範本內容非常長 如果每次請 Claude 寄信時 都要重新貼上這個範本 會顯得步驟非常地繁瑣 而如果把範本貼到 Claude 的記憶文件 也顯得不是很實際 因為這會占去 Claude 寶貴的上下文記憶空間 為了解決這個痛點 小明決定改用 Cowork 另一項強大的功能 叫做 Skill (技能) 你可以把 Skill 想成是一個說明書 或是一份 SOP (標準作業流程) 的文件 平常這個說明書只會安靜地放在後台 只有當 Claude 接收到相關指令時 它才會主動去翻閱 並載入說明書中的知識 事實上 先前我們在請 Claude 建立上課簡報時 它就有自動載入 pptx 的 Skill 用來掌握建立簡報的知識 以及在編輯 Word 和 Excel 文件時 它也有事先載入了相關的技能 那 Cowork 本身有內建了許多實用的 Skills 你可以點擊 + 號 選擇「瀏覽」 就能看到許多 Skills 的範本 例如有的可以幫你做視覺排版和設計 有的可以協助你建立品牌規範和語調規則等 而這邊我們可以考慮先安裝一個實用的技能 叫做 Skill Creator 它可以讓 Claude 協助你建立客製化的 Skill 安裝好這個技能之後 我們可以回到首頁 請 Claude 幫忙建立這個 Skill 然後按下 Enter 鍵送出 那在建立過程中 Claude 會以互動的方式先詢問我們幾個問題 逐步補全這個 Skill 的細節 而當收集好足夠的資訊後 Claude 就會開始建立這個 Skill 並進行相關的測試 最後 Claude 會請我們查看測試的結果 看看有沒有需要調整的地方 如果你覺得 OK 的話 Claude 就會把這個技能打包成一個副檔名為 skill 的檔案 方便你進行安裝和儲存 那所有安裝好的技能 都會顯示在 Customize 頁面中的 Skills 在這裡你可以啟用或停用技能 或是針對 Skill 的內容進行調整和修改 至於用不到的技能 你也可以直接將它刪除 由於這封歡迎信 小明之前已經請 AI 先寫好了 而且寄送規則也非常地清楚 因此對於這種目標和步驟都很具體的任務 我們可以直接採用手動式的建立 基本上就是把 Skill 的名稱 說明和整段提示詞都輸入到對話框內 然後點擊 Create 按鈕 所以現在小明如果要寄歡迎信件的話 他可以輸入斜線符號 來直接啟用 welcome-email 的技能 或是小明也可以直接用自然語言 請 Claude 寫一封歡迎信 Claude 會根據用戶輸入的指令 自動判斷要使用哪一個 Skill 郵件草稿全部建立完成後 我們可以來檢查一下 你可以隨便打開其中一封 Email 那無論是收件者的地址 學員姓名 以及信件內容都已經正確無誤地填寫完成囉 OK，除了 Skills 之外 你可能有注意到在 Customize 的頁面中 還有一項功能叫做 Plugins (外掛) Plugins 簡單來說 就是把剛才我們談到的 Skills 和 Connectors 打包成一個完整的工具箱 那 Cowork 同樣有提供一系列的 Plugins 範本 讓我們可以直接安裝套用 這些範本涵蓋了多種不同的專業領域 而如果有看到符合自身需求的外掛 只要點擊右上角的 Install 就能將這套工具安裝起來使用囉 好，如果你的電腦資料夾中 常有許多待整理的檔案 那麼 Cowork 將會是你最得力的數位管家 舉例來說 隨著攝影課程進入實作階段 小明出了一項課後的作業 要求每位學員必須拍攝「人像」 「靜物」和「風景」三個不同主題的照片 並將圖檔回傳給他進行課堂的講評 那假設小明已經先收到三位同學寄來的作業 如果想要將這些作品依據不同主題來進行分類的話 小明可以先建立一個 Skill 讓這個整理作業的技能能夠重複使用 Skill 建立完畢後 小明就可以直接下達「整理學員作業」的指令 如此 Claude 就會啟用視覺辨識的能力 仔細檢視每一張攝影作品的內容 接著再依據小明在 Skill 中設定好的規則 自動將相同主題的圖檔移動到專屬的資料夾內 如此一個繁瑣的歸檔工作 就在短時間內輕鬆完成囉 好，那小明有一位年邁的父親 因為患有慢性病 每隔一段時間 就需要到醫院的家醫科回診追蹤 由於老人家不熟悉醫院的網路掛號系統 所以掛號的任務通常都落在小明的身上 而現在有了 Claude Cowork 只有瀏覽器有安裝對應的擴充功能 Claude 就能協助小明完成這項工作 於是小明再次利用 Skill 的功能 把網路掛號的流程寫成了一份專屬的說明書 包含了醫院的網址 要選擇哪一位醫生 以及爸爸的身份證字號和出生年月日等資訊 Skill 建立完成後 就算小明人在外面授課 他也能透過手機的 Dispatch 功能 請 Claude 到網路上幫爸爸掛家醫科 如此在家裡待命的 Cowork 就會自動喚醒瀏覽器 精準地執行每一個掛號步驟 讓小明不用特地撥出時間 也能幫爸爸完成回診的網路掛號喔 好，那就在不久前 Claude Cowork 還迎來了一項重大的更新 就是 Claude 可以更進一步 像真人一樣協助你操作電腦內的各個軟體 那在使用這項功能之前 你可以先進入到「設定」的頁面 點擊「一般」 確認 Computer Use 的選項已經開啟 那假設今天小明剛好人在外地準備演講 卻臨時發現主辦單位的電腦只有安裝 PowerPoint 無法開啟他用 Mac 製作的 Keynote 簡報檔 在這十萬火急的情況之下 小明立即拿出手機 透過遠端連線請家裡的 Claude 幫忙進行轉檔 而 Claude 接收到指令之後 就自動在小明的電腦開啟了 Keynote 軟體 迅速將簡報輸出成相容的 PPT 格式 並順手將新檔案上傳到 iCloud 雲端硬碟 如此一來 小明就能從雲端直接下載轉檔好的簡報 輕鬆化解了一場可能的危機喔 好，那今天關於 Claude Cowork 的介紹 我們就聊到這邊 那我們就下回再見囉 拜拜`;
+    </script>
+</body>
+</html>

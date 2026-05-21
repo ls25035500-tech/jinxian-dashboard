@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>55 網段可用 IP 報表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background: #f0f2f5; padding: 20px; }
+        .header { background: #1a73e8; color: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; }
+        .header h1 { font-size: 22px; }
+        .header .meta { opacity: 0.8; font-size: 13px; margin-top: 5px; }
+        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h2 { font-size: 18px; color: #1a73e8; margin-bottom: 12px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background: #1a73e8; color: white; padding: 8px 12px; text-align: left; }
+        td { padding: 6px 12px; border-bottom: 1px solid #eee; }
+        .used { color: #c62828; }
+        .free { color: #2e7d32; }
+        .note { background: #fff3e0; padding: 10px; border-radius: 8px; font-size: 13px; margin-top: 10px; }
+        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌐 192.168.55.x 網段可用 IP 報表</h1>
+        <div class="meta">產出日期：2026-05-21 | 掃描方式：ICMP Ping</div>
+    </div>
+
+    <div class="card">
+        <h2>📊 總覽</h2>
+        <table>
+            <tr><td>網段</td><td>192.168.55.0/24</td></tr>
+            <tr><td>總 IP 數</td><td>254 個（.1 ~ .254）</td></tr>
+            <tr><td>已使用</td><td class="used">15 個</td></tr>
+            <tr><td>可用</td><td class="free">239 個</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>✅ 已使用的 IP（15 個）</h2>
+        <table>
+            <tr><th>IP</th><th>設備</th></tr>
+            <tr><td>192.168.55.1</td><td>Layer 3 Switch（閘道器）</td></tr>
+            <tr><td>192.168.55.24</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.26</td><td>NAS（聯昇官網）</td></tr>
+            <tr><td>192.168.55.28</td><td>接取層控制器</td></tr>
+            <tr><td>192.168.55.35</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.36</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.45</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.47</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.48</td><td>VM（金仙 openclaw-deepseek）</td></tr>
+            <tr><td>192.168.55.64</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.65</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.146</td><td>Avaya J139 IP 話機</td></tr>
+            <tr><td>192.168.55.240</td><td>未知設備</td></tr>
+            <tr><td>192.168.55.253</td><td>Managed Switch</td></tr>
+            <tr><td>192.168.55.254</td><td>Managed Switch</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🟢 建議可用的 IP 區段</h2>
+        <table>
+            <tr><th>區段</th><th>建議用途</th><th>可用數量</th></tr>
+            <tr><td>192.168.55.50 ~ 60</td><td>Server / VM 群</td><td>11 個</td></tr>
+            <tr><td>192.168.55.80 ~ 100</td><td>一般設備</td><td>21 個</td></tr>
+            <tr><td>192.168.55.150 ~ 200</td><td>DHCP 自動配發</td><td>51 個</td></tr>
+            <tr><td>192.168.55.200 ~ 250</td><td>保留區</td><td>51 個</td></tr>
+        </table>
+        <div class="note">💡 大部分IP都是空的，總共約 239 個可用。</div>
+    </div>
+
+    <div class="footer">
+        報告由金仙 ✨ 自動產出
+    </div>
+</body>
+</html>

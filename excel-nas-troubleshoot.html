@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel 大型檔案 NAS 慢速查修</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --warn: #fbbf24;
+    --good: #4ade80;
+    --bad: #f87171;
+    --code: #1e1e2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  h2 {
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--border);
+  }
+  h2 .step { color: var(--accent); margin-right: 0.5rem; }
+  h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 0.8rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+  }
+  .card-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  code, .code {
+    background: var(--code);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+    word-break: break-all;
+  }
+  pre {
+    background: var(--code);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.8rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--card); color: var(--accent); white-space: nowrap; }
+  .tag {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 0.3rem;
+  }
+  .tag-warn { background: #92400e; color: var(--warn); }
+  .tag-good { background: #14532d; color: var(--good); }
+  .tag-bad { background: #7f1d1d; color: var(--bad); }
+  .tag-info { background: #1e3a5f; color: var(--accent); }
+  .tip { color: var(--good); font-size: 0.85rem; }
+  .warn-box {
+    background: #422006;
+    border-left: 4px solid var(--warn);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  .good-box {
+    background: #052e16;
+    border-left: 4px solid var(--good);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+  li { margin-bottom: 0.3rem; }
+  .sop-step {
+    counter-increment: step-counter;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.8rem;
+    background: var(--card);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+  }
+  .sop-step::before {
+    content: "步驟 " counter(step-counter);
+    display: block;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  .sop-list { counter-reset: step-counter; list-style: none; padding: 0; }
+  .sop-list li { list-style: none; padding: 0; }
+  .summary-box {
+    background: linear-gradient(135deg, #1e3a5f, #312e81);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .summary-box h3 { color: white; margin-top: 0; }
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    h1 { font-size: 1.4rem; }
+    table { font-size: 0.8rem; }
+    th, td { padding: 0.3rem 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📊 Excel 大型檔案 NAS 慢速查修 SOP</h1>
+<p class="meta">金仙 ✨ 撰寫 · 適用於 Windows 11 + NAS 環境 · 同目錄下多子目錄連結</p>
+
+<div class="warn-box">
+  ⚠️ <strong>核心觀念：</strong>Excel 開啟含連結的檔案時，會逐一讀取每個連結檔案。
+  在本機 SSD 是「毫秒級」，在 NAS 上變成「網路讀取」，每一個小延遲加起來就變大延遲。
+  尤其是 Wi-Fi 連線，延遲會放大 10~50 倍。
+</div>
+
+<!-- ==================== Step 1 ==================== -->
+<h2><span class="step">①</span>三秒快速檢測</h2>
+<p>先做這三個測試，馬上知道問題在哪一層：</p>
+
+<div class="sop-step">
+  <strong>把檔案從 NAS 複製到本機桌面</strong><br>
+  看傳輸速度：<span class="tag tag-good">≥ 80 MB/s</span> 網路正常
+  <span class="tag tag-bad">&lt; 30 MB/s</span> 網路或 NAS 問題
+</div>
+
+<div class="sop-step">
+  <strong>在桌面打開那個 Excel</strong><br>
+  <span class="tag tag-good">變快很多</span> → 問題在 NAS 存取
+  <span class="tag tag-bad">一樣慢</span> → 問題在檔案本身或 Excel
+</div>
+
+<div class="sop-step">
+  <strong>開一個全新空白 Excel</strong><br>
+  <span class="tag tag-good">很快</span> → 問題在舊檔案或連結
+  <span class="tag tag-bad">也慢</span> → Excel/Windows 問題
+</div>
+
+<!-- ==================== Step 2 ==================== -->
+<h2><span class="step">②</span>NAS 層檢查（最常出問題）</h2>
+
+<table>
+  <tr><th>檢查項目</th><th>怎麼查</th><th>解法</th></tr>
+  <tr>
+    <td>SMB 版本</td>
+    <td><code>PowerShell: Get-SmbConnection</code></td>
+    <td>確認 Dialect 是 <span class="tag tag-good">3.0+</span></td>
+  </tr>
+  <tr>
+    <td>SMB 加密</td>
+    <td><code>Get-SmbServerConfiguration</code></td>
+    <td>關閉 EncryptData，加密會拖慢傳輸</td>
+  </tr>
+  <tr>
+    <td>🔴 連線方式</td>
+    <td>工作管理員 → 乙太網路</td>
+    <td><strong>必須插實體線</strong>，Wi-Fi 會慢很多</td>
+  </tr>
+  <tr>
+    <td>網路延遲</td>
+    <td><code>ping NAS_IP -t</code></td>
+    <td>正常 &lt; 1ms，若 &gt; 5ms 查交換器</td>
+  </tr>
+  <tr>
+    <td>NAS 硬碟負載</td>
+    <td>NAS 後台看硬碟使用率</td>
+    <td>如果 100% 表示硬碟不夠快</td>
+  </tr>
+</table>
+
+<div class="warn-box">
+  🔴 <strong>最常見的雷：新電腦用 Wi-Fi</strong><br>
+  新買的筆電或桌機如果是走 Wi-Fi，連 NAS 開 Excel 大型檔案會非常痛苦。
+  Excel 讀取連結不是一次大檔案傳輸，而是「很多次小檔案讀取」，
+  Wi-Fi 的延遲（5~20ms）比有線（&lt;1ms）高太多，每次小讀取都在等。
+  解法：<strong>插實體網路線</strong>，不用改任何設定就會有感變快。
+</div>
+
+<!-- ==================== Step 3 ==================== -->
+<h2><span class="step">③</span>Windows 11 / Excel 層</h2>
+
+<table>
+  <tr><th>調整項目</th><th>說明</th></tr>
+  <tr>
+    <td>🔴 Defender 即時掃描</td>
+    <td>將 NAS 資料夾加入 <strong>Defender 排除清單</strong>，否則每次讀寫都被掃毒拖慢</td>
+  </tr>
+  <tr>
+    <td>搜尋索引</td>
+    <td>關閉 Windows Search 對 NAS 位置的索引</td>
+  </tr>
+  <tr>
+    <td>離線檔案 Offline Files</td>
+    <td>關閉此功能（控制台 → 同步中心）</td>
+  </tr>
+  <tr>
+    <td>🔴 Excel 自動更新連結</td>
+    <td>Excel → 檔案 → 選項 → 進階 → 一般 → <strong>取消勾選「要求自動更新連結」</strong></td>
+  </tr>
+  <tr>
+    <td>🔴 Excel 計算選項</td>
+    <td>設為「<strong>手動</strong>」，開檔後再按 <code>F9</code> 手動計算</td>
+  </tr>
+</table>
+
+<div class="good-box">
+  ✅ <strong>最有感的三個調整：</strong><br>
+  1️⃣ 插實體網路線（如果正在用 Wi-Fi）<br>
+  2️⃣ Defender 排除 NAS 資料夾<br>
+  3️⃣ Excel 計算改手動 + 取消自動更新連結
+</div>
+
+<!-- ==================== Step 4 ==================== -->
+<h2><span class="step">④</span>結構性解法（前三步都試過還慢）</h2>
+
+<div class="card">
+  <div class="card-title">💡 方案A：本機快取（Windows 離線檔案）</div>
+  <p>檔案總管 → NAS 目錄 → 右鍵 → <strong>永遠可離線使用</strong></p>
+  <p class="tip">✓ Excel 讀取本機快取（SSD 速度）<br>✓ 存檔時才寫回 NAS<br>✓ 最不花力氣的解法</p>
+</div>
+
+<div class="card">
+  <div class="card-title">💡 方案B：檔案重構</div>
+  <ul>
+    <li>所有連結改用 <strong>相對路徑</strong>（非絕對路徑），加速連結解析</li>
+    <li>大量連結改用 <strong>Power Query 匯入</strong>，減少 Excel 跨檔案連結數量</li>
+    <li>把最常連的表格搬到同一個 Excel 內的不同工作表</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">💡 方案C：本機 SSD 工作目錄（最簡單粗暴）</div>
+  <p>工作時把整個目錄（Excel + 所有子目錄）複製到本機 SSD 操作，<br>
+  做完再整個複製回 NAS。</p>
+  <p class="tip">✓ 本機 SSD 速度完勝任何 NAS<br>
+  ✓ 適合每天固定作業，結束時一次性同步回去</p>
+</div>
+
+<!-- ==================== 總結 ==================== -->
+<div class="summary-box">
+  <h3>🚀 建議優先順序</h3>
+  <ol style="margin-top: 0.5rem; padding-left: 1.2rem; color: #e2e8f0;">
+    <li><strong>插實體網路線</strong>（如果現在用 Wi-Fi，這一步就解決了）</li>
+    <li>Defender 排除 NAS 資料夾</li>
+    <li>Excel 計算改手動 + 取消自動更新連結</li>
+    <li>NAS 資料夾設「永遠可離線使用」</li>
+    <li>還不行 → 改用本機工作目錄方案</li>
+  </ol>
+  <p style="margin-top: 0.8rem; color: #94a3b8; font-size: 0.9rem;">
+    — 金仙 ✨ · 2026-05-22
+  </p>
+</div>
+
+</div>
+</body>
+</html>

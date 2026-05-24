@@ -1,5 +1,5 @@
 @echo off
-title Jinxian USB Toolkit v1.4
+title Jinxian USB Toolkit v1.5
 
 :: Request admin rights
 net session >nul 2>&1
@@ -13,7 +13,7 @@ cd /d %~dp0
 
 echo.
 echo ============================================
-echo   Jinxian USB Toolkit v1.4
+echo   Jinxian USB Toolkit v1.5
 echo ============================================
 echo.
 
@@ -28,23 +28,20 @@ if %errorlevel% neq 0 (
 for /f "tokens=*" %%i in ('whoami') do set MYUSER=%%i
 echo       User: %MYUSER%
 
-:: Random port 10000-60000
-set /a RNDPORT=%random% %% 50000 + 10000
-
 echo.
-echo [2/2] Creating tunnel on port %RNDPORT%...
+echo [2/2] Creating tunnel via Pinggy...
 echo.
 echo ============================================
-echo   Waiting for tunnel... (port %RNDPORT%)
-echo   Send this to Jinxian:
-echo     ssh -p %RNDPORT% %MYUSER%@serveo.net
+echo   Keep this window open!
+echo   Look for: tcp://...pinggy-free.link:PORT
+echo   Send the tcp:// line to Jinxian
 echo.
-echo   !! Closing this window = disconnect !!
+echo   !! Closing window = disconnect !!
 echo ============================================
 echo.
 
-ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R %RNDPORT%:localhost:22 serveo.net
+ssh -p 443 -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R 0:localhost:22 tcp@a.pinggy.io
 
 echo.
-echo Tunnel closed. Run start.bat again to reconnect.
+echo Tunnel closed. Run again to reconnect.
 pause

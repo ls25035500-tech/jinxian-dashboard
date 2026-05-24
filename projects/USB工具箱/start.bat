@@ -1,5 +1,5 @@
 @echo off
-title Jinxian USB Toolkit v1.2
+title Jinxian USB Toolkit v1.4
 
 :: Request admin rights
 net session >nul 2>&1
@@ -13,43 +13,38 @@ cd /d %~dp0
 
 echo.
 echo ============================================
-echo   Jinxian USB Toolkit v1.2
-echo   Plug in -^> Double-click -^> Jinxian connects
+echo   Jinxian USB Toolkit v1.4
 echo ============================================
 echo.
 
 echo [1/2] Enabling SSH Server...
 powershell -ExecutionPolicy Bypass -File "%~dp0setup-ssh.ps1"
 if %errorlevel% neq 0 (
-    echo.
     echo [FAIL] SSH setup failed!
-    echo Check: Win10 1809+, connected to internet?
-    echo.
     pause
     exit /b 1
 )
 
-:: Show current username
 for /f "tokens=*" %%i in ('whoami') do set MYUSER=%%i
 echo       User: %MYUSER%
 
+:: Random port 10000-60000
+set /a RNDPORT=%random% %% 50000 + 10000
+
 echo.
-echo [2/2] Creating secure tunnel...
+echo [2/2] Creating tunnel on port %RNDPORT%...
 echo.
 echo ============================================
-echo   WAITING for tunnel...
-echo   Once connected, send Port + User + Password
-echo   to Jinxian via LINE or Telegram
+echo   Waiting for tunnel... (port %RNDPORT%)
+echo   Send this to Jinxian:
+echo     ssh -p %RNDPORT% %MYUSER%@serveo.net
 echo.
 echo   !! Closing this window = disconnect !!
 echo ============================================
 echo.
 
-ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R 0:localhost:22 serveo.net
+ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R %RNDPORT%:localhost:22 serveo.net
 
 echo.
-echo ============================================
-echo Tunnel closed. Jinxian disconnected.
-echo Run start.bat again to reconnect.
-echo.
+echo Tunnel closed. Run start.bat again to reconnect.
 pause

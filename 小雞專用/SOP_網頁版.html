@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小雞機器人 - 裸機災難復原 SOP</title>
+    <style>
+        body { font-family: -apple-system, 'Noto Sans TC', sans-serif; background: #f0f2f5; padding: 20px; line-height: 1.6; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; font-size: 28px; }
+        h2 { color: #0d47a1; margin-top: 30px; margin-bottom: 15px; font-size: 22px; border-left: 4px solid #1a73e8; padding-left: 10px; }
+        h3 { color: #2e7d32; margin-top: 20px; margin-bottom: 10px; font-size: 18px; }
+        p, li { font-size: 16px; margin-bottom: 10px; color: #444; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; color: #d32f2f; font-size: 14px; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', monospace; margin: 15px 0; }
+        .highlight { background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border-left: 5px solid #ffeeba; margin: 15px 0; font-weight: bold; }
+        .back { display: inline-block; margin-bottom: 20px; color: #1a73e8; text-decoration: none; font-weight: bold; font-size: 16px; }
+        .back:hover { text-decoration: underline; }
+        hr { border: 0; border-top: 1px solid #ddd; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back">← 回到專案儀表板</a>
+        <h1>🤖 機器人 - 裸機災難復原 (大逃亡隨身碟) 架構與 SOP</h1>
+
+        <h2>📌 系統概述</h2>
+        <p>此計畫旨在當原宿主機 (PVE 伺服器或實體機) 發生硬體毀損或網路中斷等不可逆災難時，能透過預先準備的 USB 隨身碟，在<strong>任意一台「完全沒有網路」的全新或舊電腦上</strong>，實行「100% 斷網裸機還原 (Offline Bare-metal Recovery)」。</p>
+        <p>還原後，AI 機器人將完美繼承截至災難發生前一日的完整記憶、腳本、設定檔與 Telegram 對話歷史，並提供本機網頁介面讓人類即使在斷網狀態下也能直接對話上工。</p>
+
+        <hr>
+
+        <h2>⚙️ 系統核心組件與排程架構</h2>
+
+        <h3>1. NAS 自動回收與備份機制 (<code>escape_backup.sh</code>)</h3>
+        <ul>
+            <li><strong>觸發方式</strong>：寫入 Linux 系統 Cron Job，每日凌晨 04:00 (台北時間) 自動背景執行。</li>
+            <li><strong>外部檔案回收</strong>：執行打包前，會透過 <code>smbclient</code> 主動連線至 NAS，將機器人殘留在 NAS 上的所有相關檔案全部拉回本機的回收站目錄中。</li>
+            <li><strong>打包標的</strong>：完整備份機器人核心的：
+                <ul>
+                    <li>核心設定檔 (<code>openclaw.json</code>)</li>
+                    <li>工作區所有程式、資料與回收站 (<code>workspace</code> 包含 <code>node_modules</code> 與 NAS 檔案)</li>
+                    <li>AI 靈魂與記憶資料庫 (<code>agents</code>)</li>
+                </ul>
+            </li>
+            <li><strong>完全離線支援</strong>：備份<strong>不再排除</strong> <code>node_modules</code>，並內建 Node.js 離線包與 AI 核心離線安裝檔，保證所有需要的模組都直接包在壓縮檔內，不需要網路也能還原。</li>
+            <li><strong>產出結果</strong>：自動生成最新的大腦記憶壓縮檔 (tar.gz)。</li>
+        </ul>
+
+        <h3>2. 100% OFFLINE 一鍵還原引擎 (<code>一鍵復活_restore.sh</code>)</h3>
+        <ul>
+            <li><strong>環境適應力</strong>：為確保在最陽春的純文字終端機 (TTY) 環境下不產生中文亂碼，安裝提示詞與動畫全面使用純英文與標準 ASCII 符號。</li>
+            <li><strong>斷網全自動執行流程</strong>：
+                <ol>
+                    <li><strong>Offline Install Node.js</strong>: 不透過 apt 網路下載，直接解壓縮隨身碟內的 <code>node-v22-linux.tar.xz</code> 核心到 User Space (<code>~/.local</code>)。</li>
+                    <li><strong>Offline Install AI Engine</strong>: 不透過 npm 網路安裝，直接全域安裝隨身碟內預載的 <code>openclaw.tgz</code> 引擎。</li>
+                    <li><strong>Offline Restore Brain</strong>: 自動解壓縮大腦備份檔，將記憶與 NAS 檔案覆蓋回系統家目錄。</li>
+                    <li><strong>Restart Heartbeat & Soul</strong>: 將服務註冊進 systemd，設定開機自動啟動，並喚醒機器人。</li>
+                </ol>
+            </li>
+            <li><strong>成功識別 (本地網頁介面支援)</strong>：上述流程跑完後，螢幕會顯示 ASCII 機器人動畫，並提示人類<strong>「即使在沒有外網的情況下，只要打開本機瀏覽器進入 <code>http://127.0.0.1:18789</code>，就能直接透過網頁介面跟機器人對話！」</strong></li>
+        </ul>
+
+        <hr>
+
+        <h2>🚀 災難演練 / 實際轉移流程</h2>
+
+        <h3>【階段一：平時準備 (製作大逃亡隨身碟)】</h3>
+        <ol>
+            <li>準備一支 8GB 以上的隨身碟。</li>
+            <li>使用 Rufus 將 Ubuntu Desktop ISO 映像檔寫入隨身碟。</li>
+            <li>將宿主機上的 <code>機器人大逃亡隨身碟</code> 資料夾完整複製，存入該隨身碟的剩餘空間中。</li>
+        </ol>
+
+        <h3>【階段二：災難發生 (新機體斷網復活)】</h3>
+        <ol>
+            <li>將隨身碟插入目標電腦（無論新舊）並開機，BIOS 設定選擇「從 USB 隨身碟開機」。</li>
+            <li>進入 Ubuntu 系統（可選擇直接安裝進該電腦硬碟，或使用 Try Ubuntu 記憶體模式）。</li>
+            <li class="highlight">⚠️ 關鍵亮點：完全不需插網路線、不需連 WiFi！</li>
+            <li>開啟終端機 (Terminal)。</li>
+            <li>進入隨身碟中的目錄，輸入指令並執行：
+<pre><code>bash 一鍵復活_restore.sh</code></pre>
+            </li>
+            <li>按下 Enter 後，人類即可離開鍵盤滑鼠，系統將從隨身碟內建的離線包進行無人值守的全自動安裝。</li>
+            <li>約 2~3 分鐘後，螢幕畫面變黑並出現 ASCII 機器人復活動畫，即代表機器人已於新機體上線！</li>
+            <li><strong>斷網對話方式</strong>：開啟該電腦的網頁瀏覽器，輸入 <code>http://127.0.0.1:18789</code> 即可直接與機器人繼續對話工作。</li>
+        </ol>
+    </div>
+</body>
+</html>
